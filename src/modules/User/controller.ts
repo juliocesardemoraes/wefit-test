@@ -24,7 +24,8 @@ export class UserController {
       if (error instanceof ZodCustomError) {
         return response.status(error.statusCode).send({
           error: error.message,
-          erros: error.arrayOfErrors,
+          probableError: "",
+          formErrors: error.arrayOfErrors,
         });
       }
 
@@ -36,12 +37,45 @@ export class UserController {
           error: "Erro na criação de um usuário",
           probableError:
             "O usuário já existe. Os campos CPF, CNPJ (se fornecido) e e-mail devem ser exclusivos da conta que está querendo criar.",
+          formErrors: [],
         });
       }
 
       return response.status(500).send({
         error: "Erro na criação de um usuário",
         probableError: errorMessage,
+        formErrors: [],
+      });
+    }
+  }
+
+  public static async findOne(request: Request, response: Response) {
+    try {
+      const formData = request.query;
+      const service = new UserService();
+      const responseFormCreation = await service.findOne(formData);
+      return success(
+        response,
+        responseFormCreation,
+        "Usuário pesquisado com sucesso!",
+        201
+      );
+    } catch (error) {
+      let errorMessage =
+        error instanceof Error ? error.message : "Erro desconhecido";
+
+      if (error instanceof ZodCustomError) {
+        return response.status(error.statusCode).send({
+          error: error.message,
+          probableError: "",
+          formErrors: error.arrayOfErrors,
+        });
+      }
+
+      return response.status(500).send({
+        error: "Erro na pesquisa de um usuário",
+        probableError: errorMessage,
+        formErrors: [],
       });
     }
   }
