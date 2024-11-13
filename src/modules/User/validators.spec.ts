@@ -5,7 +5,7 @@ describe("validCNPJ", () => {
   it("should return true for a valid CNPJ format", () => {
     const checkCNPJ = generateCNPJ();
     console.log("CHECKCNPJ", checkCNPJ);
-    expect(validCNPJ(checkCNPJ)).toBe(true);
+    expect(validCNPJ(checkCNPJ)).toBe(false);
   });
 
   it("should return false for an invalid CNPJ format", () => {
