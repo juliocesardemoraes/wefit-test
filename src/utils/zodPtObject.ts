@@ -1,4 +1,7 @@
-const checkPTObj: any = {
+/**
+ * Object for customized translation
+ */
+export const zodTranslatePt: any = {
   errors: {
     invalid_type:
       "O dado deve ser do tipo {{expected}}, porém foi enviado {{received}}",
@@ -92,23 +95,4 @@ const checkPTObj: any = {
     regex: "regex",
     datetime: "datetime",
   },
-};
-
-export const translateErrorMessage = (type: any, data: any) => {
-  let stringToReplace = checkPTObj?.errors?.[type];
-
-  for (const [key, value] of Object.entries(data)) {
-    if (typeof stringToReplace === "string") {
-      if (stringToReplace.includes(`{{${key}}}`))
-        stringToReplace = stringToReplace.replace(`{{${key}}}`, `${value}`);
-    }
-
-    if (
-      typeof stringToReplace !== "string" &&
-      stringToReplace?.[data?.validation]
-    ) {
-      stringToReplace = stringToReplace[data.validation];
-    }
-  }
-  return stringToReplace;
 };

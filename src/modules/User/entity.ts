@@ -1,7 +1,5 @@
 import { z } from "zod";
 import { validCNPJ, validCPF } from "./validators.js";
-import { translateErrorMessage } from "utils/zod-pt.js";
-import { ZodCustomError } from "utils/utils.js";
 
 export const userValidateSchemaRequest = z.object({
   tipoPessoa: z.enum(["f", "j"]),
@@ -29,32 +27,3 @@ export const userValidateSchemaRequest = z.object({
   email: z.string().email(),
   checkEmail: z.string().email(),
 });
-
-export function validateRequest(data: unknown, requestSchema: any): any {
-  const result = requestSchema.safeParse(data);
-  let errorsCustomArray: any[] = [];
-
-  if (!result.success) {
-    for (let i = 0; i < result.error.issues.length; i++) {
-      const error = result.error.issues[i];
-      console.log("ERROR", error);
-      const mapper = error.path?.[0] ?? "Erro não mapeado";
-
-      const obj: any = {
-        [mapper]: translateErrorMessage(error.code, error),
-      };
-
-      if (error?.message && error?.message?.includes("Custom - ")) {
-        obj.mensagemCustomizada = error?.message?.replace("Custom - ", "");
-      }
-      errorsCustomArray.push(obj);
-    }
-
-    throw new ZodCustomError(
-      "Erro na validação dos campos",
-      400,
-      errorsCustomArray
-    );
-  }
-  return result.data;
-}

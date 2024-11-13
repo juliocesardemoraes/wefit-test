@@ -1,4 +1,5 @@
-import { userValidateSchemaRequest, validateRequest } from "./entity.js";
+import { validateRequest } from "utils/zod.js";
+import { userValidateSchemaRequest } from "./entity.js";
 
 export class UserService {
   async create(bodyData: any) {
