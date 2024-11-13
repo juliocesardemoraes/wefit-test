@@ -3,8 +3,13 @@ import { validCNPJ, validCPF } from "./customvalidator.js";
 
 export const userValidateSchemaRequest = z
   .object({
-    tipoPessoa: z.enum(["f", "j"]),
-    tipoUsuario: z.enum(["v", "c"]),
+    tipoPessoa: z.enum(["f", "j"], {
+      message:
+        "Custom - Deve ser f para pessoa física ou j para pessoa jurídica",
+    }),
+    tipoUsuario: z.enum(["v", "c"], {
+      message: "Custom - Deve ser v para vendedor ou c para comprador",
+    }),
     cnpj: z
       .string()
       .optional()
