@@ -11,4 +11,7 @@ import { app } from "./index.js";
 
 const port = process.env.PORT || 4568;
 
-app.listen(port, () => console.log(`Server is running on PORT ${port}`));
+app.listen(port, () => {
+  console.log(`Server is running on PORT http://localhost:${port}`);
+  console.log(`Server is running on PORT http://localhost:${port}/api-docs`);
+});

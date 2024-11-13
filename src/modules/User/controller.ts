@@ -58,7 +58,7 @@ export class UserController {
         response,
         responseFormCreation,
         "Usuário pesquisado com sucesso!",
-        201
+        200
       );
     } catch (error) {
       let errorMessage =

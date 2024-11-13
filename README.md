@@ -93,4 +93,5 @@ Valores sem máscara. - OK
 
 - [x] Erros customizados em português. Tive que montar um porque a biblioteca que tinha na net não rodou.
 - [x] Testes de integração supertest.
-- [x] Testes em massa com supertest.
+- [x] Testes em massa com supertest. Testes de criação em batch de usuários
+- [x] Adição do swagger.
