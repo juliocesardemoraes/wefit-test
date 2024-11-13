@@ -6,6 +6,8 @@
 
 o docker-compose vai criar um container de um MySQL e você poderá acessar via localhost:3306 e a senha do usuário **root** é **senha_root_123**
 
+<hr></hr>
+
 ### Para iniciar o servidor express basta executar o seguinte comando:
 
 ```
@@ -27,6 +29,7 @@ npm run test
 2 - Faça uma request neste endpoint
 
 ```
+// Insert one
 curl --location 'http://localhost:4568/user/create' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -46,6 +49,28 @@ curl --location 'http://localhost:4568/user/create' \
   "bairro": "centro",
   "estado": "mg"
 }'
+
+
+// Find one
+curl --location --request GET 'http://localhost:4568/user/findOne?email=jcmcsasa%40gmail.com' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "tipoPessoa": "f",
+    "tipoUsuario": "c",
+    "cpf": "46540714076",
+    "nome": "Júlio Moraes",
+    "celular": "35933444444",
+    "telefone": "3536620404",
+    "email": "jc15202@gmail.com",
+    "checkEmail": "jc15202@gmail.com",
+    "cep": "12345678",
+    "logradouro": "Avenida dr silvestre",
+    "numero" : "140",
+    "complemento": "154",
+    "cidade": "maria da fé",
+    "bairro": "lage",
+    "estado": "mg"
+}'
 ```
 
 3 - Alternativa:
@@ -54,10 +79,9 @@ Importar a collection da seguinte pasta
 
 ./README/postman/wefit.postman_collection.json
 
-### Checklist
+### Roadmap
 
 Criação de um backend com nodejs - OK
-
 - [x] Integração com o banco de dados
 - [x] Usar typeorm para banco de dados
 - [x] Criação das envs
@@ -94,7 +118,7 @@ Valores sem máscara. - OK
 
 ### Extra
 
-- [x] Erros customizados em português. Tive que montar um porque a biblioteca que tinha na net não rodou.
+- [x] Erros customizados do ZOD em português. Tive que montar um porque a biblioteca que tinha no github não rodou.
 - [x] Testes de integração supertest.
 - [x] Testes em massa com supertest. Testes de criação em batch de usuários
 - [x] Adição do swagger.
