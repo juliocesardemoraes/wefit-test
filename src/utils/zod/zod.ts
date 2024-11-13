@@ -42,7 +42,6 @@ export function validateRequest(data: unknown, requestSchema: any): any {
   if (!result.success) {
     for (let i = 0; i < result.error.issues.length; i++) {
       const error = result.error.issues[i];
-      console.log("ERROR", error);
       const mapper = error.path?.[0] ?? "Erro não mapeado";
 
       const obj: any = {

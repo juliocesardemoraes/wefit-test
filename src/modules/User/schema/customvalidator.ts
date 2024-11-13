@@ -61,3 +61,6 @@ export const validCPF = (value: string | number | number[] = "") => {
 
   return digit0 === numbers[9] && digit1 === numbers[10];
 };
+
+export const emailRegex =
+  /^([A-Z0-9_+-]+\.?)*[A-Z0-9_+-]@([A-Z0-9][A-Z0-9\-]*\.)+[A-Z]{2,}$/i;

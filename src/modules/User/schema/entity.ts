@@ -30,7 +30,12 @@ export const userValidateSchemaRequest = z
         /^\d{10,11}$/,
         "Custom - Telefone deve ter 10 - 11 dígitos (somente números) com DDD"
       ),
-    email: z.string().email(),
+    email: z
+      .string()
+      .regex(
+        /^([A-Z0-9_+-]+\.?)*[A-Z0-9_+-]@([A-Z0-9][A-Z0-9\-]*\.)+[A-Z]{2,}$/i,
+        "Custom - Email deve ser válido"
+      ),
     checkEmail: z.string().email(),
     cep: z
       .string()
@@ -71,3 +76,12 @@ export const userValidateSchemaRequest = z
       path: ["checkEmail"],
     }
   );
+
+export const getUserValidateRequest = z.object({
+  email: z
+    .string()
+    .regex(
+      /^([A-Z0-9_+-]+\.?)*[A-Z0-9_+-]@([A-Z0-9][A-Z0-9\-]*\.)+[A-Z]{2,}$/i,
+      "Custom - Email deve ser válido"
+    ),
+});
