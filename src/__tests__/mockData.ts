@@ -15,8 +15,8 @@ const gerarStringRandomica = (length = 9) => {
 
 export const generateMockData = async () => {
   const emailUnico = faker.internet.email();
-  return {
-    tipoPessoa: "f",
+  const mockObj: any = {
+    tipoPessoa: faker.helpers.randomize(["f", "j"]),
     tipoUsuario: faker.helpers.randomize(["c", "v"]),
     cpf: faker.br.cpf(),
     nome: faker.name.findName(),
@@ -32,4 +32,10 @@ export const generateMockData = async () => {
     bairro: "centro",
     estado: "mg",
   };
+
+  if (mockObj.tipoPessoa === "j") {
+    mockObj.cnpj = faker.br.cnpj();
+  }
+
+  return mockObj;
 };

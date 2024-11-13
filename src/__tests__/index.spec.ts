@@ -41,7 +41,7 @@ describe("Integration tests", () => {
       .get("/user/findOne")
       .query({ email: fakeData.email });
 
-    expect(responseFromDb.status).toBe(201);
+    expect(responseFromDb.status).toBe(200);
   });
 
   it("should handle POST request to /user and insert ten users", async () => {
