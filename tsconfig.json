@@ -8,7 +8,7 @@
     "baseUrl": "./src",
     "strict": true,
     "strictPropertyInitialization": false,
-    "allowJs": false,
+    "allowJs": true,
     "esModuleInterop": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
