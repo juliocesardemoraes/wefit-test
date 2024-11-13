@@ -1,5 +1,5 @@
-import { generateCNPJ, generateCPF } from "../../utils/utils.js";
-import { validCNPJ, validCPF } from "./validators.js";
+import { generateCNPJ, generateCPF } from "../../../utils/utils.js";
+import { validCNPJ, validCPF } from "../schema/customvalidator.js";
 
 describe("CNPJ CHECK", () => {
   it("should return true for 100 valid CNPJs formats", () => {

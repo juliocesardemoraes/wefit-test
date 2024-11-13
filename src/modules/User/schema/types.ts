@@ -6,6 +6,7 @@ export interface IUser {
   celular?: string | null;
   telefone?: string | null;
   email: string;
+  checkEmail: string;
   cep: string;
   logradouro: string;
   numero: string;
