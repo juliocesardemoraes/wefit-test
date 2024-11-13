@@ -6,7 +6,6 @@ export class UserService {
     if (!bodyData) throw new Error("Não existe conteúdo na requisição");
 
     const validate = await validateRequest(bodyData, userValidateSchemaRequest);
-    console.log(validate);
 
     return validate;
   }
