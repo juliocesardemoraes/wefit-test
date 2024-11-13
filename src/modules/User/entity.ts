@@ -1,33 +1,60 @@
 import { z } from "zod";
-import { validCNPJ } from "./validators.js";
+import { validCNPJ, validCPF } from "./validators.js";
+import { translateErrorMessage } from "utils/zod-pt.js";
+import { ZodCustomError } from "utils/utils.js";
 
-export const messageCheckSchemaRequest = z.object({
+export const userValidateSchemaRequest = z.object({
+  tipoPessoa: z.enum(["f", "j"]),
+  tipoUsuario: z.enum(["v", "c"]),
   cnpj: z
     .string()
     .optional()
     .refine((cnpj) => {
       return !cnpj || validCNPJ(cnpj);
-    }, "Digite um CNPJ válido"),
-  cpf: z.string().refine((cpf: string) => {
-    if (typeof cpf !== "string") return false;
+    }),
+  cpf: z.string().refine((cpf) => validCPF(cpf)),
+  nome: z.string(),
+  celular: z
+    .string()
+    .regex(
+      /^\d{10,11}$/,
+      "Custom - Celular deve ter 10 - 11 dígitos (somente números) com DDD"
+    ),
+  telefone: z
+    .string()
+    .regex(
+      /^\d{10,11}$/,
+      "Custom - Telefone deve ter 10 - 11 dígitos (somente números) com DDD"
+    ),
+  email: z.string().email(),
+  checkEmail: z.string().email(),
+});
 
-    cpf = cpf.replace(/[^\d]+/g, "");
+export function validateRequest(data: unknown, requestSchema: any): any {
+  const result = requestSchema.safeParse(data);
+  let errorsCustomArray: any[] = [];
 
-    if (cpf.length !== 11 || !!cpf.match(/(\d)\1{10}/)) return false;
+  if (!result.success) {
+    for (let i = 0; i < result.error.issues.length; i++) {
+      const error = result.error.issues[i];
+      console.log("ERROR", error);
+      const mapper = error.path?.[0] ?? "Erro não mapeado";
 
-    const cpfDigits: number[] = [];
-    for (let i = 0; i < 11; i++) {
-      cpfDigits.push(parseInt(cpf[i]));
+      const obj: any = {
+        [mapper]: translateErrorMessage(error.code, error),
+      };
+
+      if (error?.message && error?.message?.includes("Custom - ")) {
+        obj.mensagemCustomizada = error?.message?.replace("Custom - ", "");
+      }
+      errorsCustomArray.push(obj);
     }
 
-    const rest = (count: number): number => {
-      let sum = 0;
-      for (let i = 0; i < count - 1; i++) {
-        sum += cpfDigits[i] * (count - i);
-      }
-      return ((sum * 10) % 11) % 10;
-    };
-
-    return rest(10) === cpfDigits[9] && rest(11) === cpfDigits[10];
-  }, "Digite um CPF válido."),
-});
+    throw new ZodCustomError(
+      "Erro na validação dos campos",
+      400,
+      errorsCustomArray
+    );
+  }
+  return result.data;
+}
