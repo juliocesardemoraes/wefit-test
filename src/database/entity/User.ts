@@ -5,6 +5,14 @@ export class User {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
+  // F ou J(física ou juridica)
+  @Column({ type: "varchar", length: 1 })
+  tipoPessoa: string;
+
+  // V ou C(vendedor ou comprador)
+  @Column({ type: "varchar", length: 1 })
+  tipoUsuario: string;
+
   @Column({ type: "varchar", unique: true })
   cnpj: string;
 
@@ -43,10 +51,4 @@ export class User {
 
   @Column({ type: "varchar" })
   estado: string;
-
-  @Column({ type: "varchar", length: 1 })
-  tipo_pessoa: string;
-
-  @Column({ type: "varchar", length: 1 })
-  tipo_usuario: string;
 }
