@@ -1,7 +1,7 @@
-import { validateRequest } from "utils/zod/zod.js";
+import { validateRequest } from "../../utils/zod/zod.js";
 import { userValidateSchemaRequest } from "./schema/entity.js";
-import { AppDataSource } from "database/data-source.js";
-import { User } from "database/entity/User.js";
+import { AppDataSource } from "../../database/data-source.js";
+import { User } from "../../database/entity/User.js";
 
 export class UserService {
   async create(bodyData: any) {

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { success, ZodCustomError } from "utils/utils.js";
+import { success, ZodCustomError } from "../../utils/utils.js";
 import { UserService } from "./service.js";
 import { QueryFailedError } from "typeorm";
 
@@ -16,6 +16,8 @@ export class UserController {
         201
       );
     } catch (error) {
+      console.error("ERRROR", error);
+
       let errorMessage =
         error instanceof Error ? error.message : "Erro desconhecido";
 

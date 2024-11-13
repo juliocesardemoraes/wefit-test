@@ -1,5 +1,7 @@
 import { DataSource } from "typeorm";
-import { User } from "./entity/User";
+import { User } from "./entity/User.js";
+
+console.log("process.env.MYSQLDB_HOST", process.env.MYSQLDB_HOST);
 
 export const AppDataSource = new DataSource({
   type: "mysql",
