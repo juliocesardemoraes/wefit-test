@@ -10,6 +10,7 @@ o docker-compose vai criar um container de um MySQL e você poderá acessar via 
 
 ```
 npm install
+// Ao se rodar o npm run dev será criado também a tabela no banco
 npm run dev
 ```
 
@@ -21,7 +22,9 @@ npm run test
 
 ### Como testar?
 
-1 - Faça uma request neste endpoint
+1 - Pelo próprio swagger: http://localhost:4568/api-docs
+
+2 - Faça uma request neste endpoint
 
 ```
 curl --location 'http://localhost:4568/user/create' \
@@ -45,7 +48,7 @@ curl --location 'http://localhost:4568/user/create' \
 }'
 ```
 
-2 - Alternativa:
+3 - Alternativa:
 
 Importar a collection da seguinte pasta
 
