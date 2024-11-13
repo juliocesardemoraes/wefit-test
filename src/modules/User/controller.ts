@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { success, ZodCustomError } from "utils/utils.js";
 import { UserService } from "./service.js";
+import { QueryFailedError } from "typeorm";
 
 export class UserController {
   public static async create(request: Request, response: Response) {
@@ -15,6 +16,9 @@ export class UserController {
         201
       );
     } catch (error) {
+      let errorMessage =
+        error instanceof Error ? error.message : "Erro desconhecido";
+
       if (error instanceof ZodCustomError) {
         return response.status(error.statusCode).send({
           error: error.message,
@@ -22,8 +26,16 @@ export class UserController {
         });
       }
 
-      const errorMessage =
-        error instanceof Error ? error.message : "Erro desconhecido";
+      if (
+        error instanceof QueryFailedError &&
+        error.message.includes("Duplicate entry")
+      ) {
+        return response.status(400).send({
+          error: "Erro na criação de um usuário",
+          probableError:
+            "O usuário já existe. Os campos CPF, CNPJ (se fornecido) e e-mail devem ser exclusivos da conta que está querendo criar.",
+        });
+      }
 
       return response.status(500).send({
         error: "Erro na criação de um usuário",
