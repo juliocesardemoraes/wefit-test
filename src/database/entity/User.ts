@@ -13,7 +13,7 @@ export class User {
   @Column({ type: "varchar", length: 1 })
   tipoUsuario: string;
 
-  @Column({ type: "varchar", unique: true })
+  @Column({ type: "varchar", unique: true, nullable: true })
   cnpj: string;
 
   @Column({ type: "varchar", unique: true })
