@@ -85,3 +85,29 @@ export function generateCNPJ() {
 
   return `${n1}${n2}${n3}${n4}${n5}${n6}${n7}${n8}${n9}${n10}${n11}${n12}${d1}${d2}`;
 }
+
+export function success(
+  response: any,
+  data: any,
+  message: string = "Requisição foi bem sucedida",
+  statusCode: number = 200
+) {
+  return response.status(statusCode).send({
+    status: "success",
+    message,
+    data,
+  });
+}
+
+export class ZodCustomError extends Error {
+  public statusCode: number;
+  public arrayOfErrors: string[];
+
+  constructor(message: string, statusCode: number, arrayOfErrors: string[]) {
+    super(message);
+    this.statusCode = statusCode;
+    this.arrayOfErrors = arrayOfErrors;
+    this.name = this.constructor.name;
+    Error.captureStackTrace(this, this.constructor);
+  }
+}
